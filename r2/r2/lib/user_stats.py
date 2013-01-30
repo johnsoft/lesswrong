@@ -138,6 +138,8 @@ def user_vote_change_links(period=None, user=None):
                     link_dt.c.key == 'sr_id',
                     link_dt.c.thing_id == rt.c.thing2_id)
     if period is not None:
+        # Note: limiting this to only recent items is intentional
+        # http://lesswrong.com/r/discussion/lw/ghy/minor_separate_upvotes_and_downvotes_implimented/8d7f
         earliest = datetime.now(g.tz) - timedelta(0, period)
         query.clauses.extend((rt.c.date >= earliest, link_tt.c.date >= earliest))
     if user is not None:
